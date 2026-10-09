@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>云酿智链 AI OS · 登录</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="login-body">
+
+<!-- 背景粒子层 -->
+<div class="login-bg">
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- 登录容器 -->
+<div class="login-wrap">
+  <!-- 左侧品牌展示 -->
+  <div class="login-brand">
+    <div class="brand-logo-lg">
+      <div class="logo-mark">酿</div>
+      <div class="logo-ring"></div>
+      <div class="logo-ring logo-ring-2"></div>
+    </div>
+    <h1 class="brand-title-lg">
+      云酿智链 <span class="gold-text">AI OS</span>
+    </h1>
+    <p class="brand-subtitle-lg">酒业 AI 经营决策与全链路增长平台</p>
+    
+    <div class="brand-features">
+      <div class="feature-item">
+        <div class="feature-ico">◈</div>
+        <div class="feature-text">
+          <div class="feature-t">AI 选品决策</div>
+          <div class="feature-d">3-3-4选品策略 · FABE模型</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-ico">♟</div>
+        <div class="feature-text">
+          <div class="feature-t">私域分层运营</div>
+          <div class="feature-d">RFM模型 · 智能触达</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-ico">◔</div>
+        <div class="feature-text">
+          <div class="feature-t">智能投放分析</div>
+          <div class="feature-d">动态调优 · ROI最大化</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-ico">✎</div>
+        <div class="feature-text">
+          <div class="feature-t">内容智能生成</div>
+          <div class="feature-d">直播话术 · 数字人直播</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-stats">
+      <div class="stat-item">
+        <div class="stat-val">17万+</div>
+        <div class="stat-label">私域用户</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-val">5083万</div>
+        <div class="stat-label">累计GMV</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-val">3.06</div>
+        <div class="stat-label">投放ROI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右侧登录表单 -->
+  <div class="login-form-wrap">
+    <div class="login-card">
+      <div class="login-card-head">
+        <div class="login-title">欢迎登录</div>
+        <div class="login-subtitle">云酿智链 · 酒业智能决策系统</div>
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label class="form-label">企业账号</label>
+          <div class="input-wrap">
+            <span class="input-ico">🏢</span>
+            <input type="text" id="account" placeholder="请输入企业账号 / 手机号" value="demo@yunniang.com" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">登录密码</label>
+          <div class="input-wrap">
+            <span class="input-ico">🔒</span>
+            <input type="password" id="password" placeholder="请输入登录密码" value="demo1234" />
+            <button type="button" class="pwd-toggle" id="pwdToggle">👁</button>
+          </div>
+        </div>
+
+        <div class="form-row-between">
+          <label class="remember-me">
+            <input type="checkbox" id="remember" checked />
+            <span>记住登录状态</span>
+          </label>
+          <a href="javascript:;" class="forgot-pwd">忘记密码？</a>
+        </div>
+
+        <button type="submit" class="btn-login" id="btnLogin">
+          <span class="btn-text">登 录</span>
+          <span class="btn-loader" style="display:none"></span>
+        </button>
+
+        <div class="login-tip">
+          <span class="tip-ico">💡</span>
+          <span>演示账号已预填，直接点击登录即可体验</span>
+        </div>
+      </form>
+
+      <div class="login-footer">
+        <span>临沂云酿流香信息技术有限公司</span>
+        <span class="footer-dot">·</span>
+        <span>© 2026 云酿智链</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 登录过渡动画层 -->
+<div class="login-transition" id="loginTransition">
+  <div class="transition-logo">
+    <div class="logo-mark">酿</div>
+  </div>
+  <div class="transition-text">正在进入 AI 决策系统…</div>
+  <div class="transition-bar">
+    <div class="transition-bar-fill" id="transFill"></div>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>

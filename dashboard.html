@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>云酿智链 AI OS · 智能决策工作台</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<div id="app">
+  <!-- 侧边栏 -->
+  <aside id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">酿</div>
+      <div class="brand-text">
+        <div class="brand-name">云酿智链 <span class="brand-os">AI&nbsp;OS</span></div>
+        <div class="brand-sub">酒业智能决策系统</div>
+      </div>
+    </div>
+    <nav id="nav"></nav>
+    <div class="side-foot">
+      <div class="enterprise-info">
+        <div class="ent-avatar">酒</div>
+        <div class="ent-detail">
+          <div class="ent-name" id="entName">演示酒企</div>
+          <div class="ent-role">企业管理员</div>
+        </div>
+      </div>
+      <button class="btn-ghost" id="btnLogout">退出登录</button>
+    </div>
+  </aside>
+
+  <!-- 主区域 -->
+  <main id="main">
+    <header id="topbar">
+      <div class="topbar-left">
+        <div class="topbar-title" id="viewTitle">工作台总览</div>
+        <div class="topbar-sub" id="viewSub">实时经营数据 · AI 决策引擎运行中</div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" placeholder="搜索功能、酒品、数据…" />
+        </div>
+        <div class="notify-bell">🔔<span class="notify-dot"></span></div>
+        <div class="user-chip">
+          <span class="user-avatar">管</span>
+          <span class="user-name">管理员</span>
+        </div>
+      </div>
+    </header>
+    <div id="view"></div>
+  </main>
+</div>
+
+<!-- 首次配置向导弹窗 -->
+<div class="onboarding-mask" id="onboardingMask" style="display:none">
+  <div class="onboarding-card">
+    <div class="onboarding-head">
+      <div class="onboarding-title">欢迎使用云酿智链 AI OS</div>
+      <div class="onboarding-sub">完成以下配置，AI 将为您的酒企生成专属决策方案</div>
+    </div>
+
+    <!-- 步骤指示器 -->
+    <div class="step-indicator">
+      <div class="step-dot active" data-step="1"><span>1</span></div>
+      <div class="step-line active"></div>
+      <div class="step-dot" data-step="2"><span>2</span></div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="3"><span>3</span></div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="4"><span>4</span></div>
+    </div>
+    <div class="step-labels">
+      <span>企业信息</span>
+      <span>酒品管理</span>
+      <span>价格配置</span>
+      <span>经营数据</span>
+    </div>
+
+    <!-- 步骤内容 -->
+    <div class="onboarding-body">
+      <!-- Step 1: 企业信息 -->
+      <div class="ob-step active" data-step="1">
+        <div class="ob-step-title">第一步：企业基本信息</div>
+        <div class="ob-step-desc">让 AI 了解您的企业规模与业务范围</div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">企业名称</label>
+            <input type="text" class="form-input" id="ob_entName" placeholder="请输入企业名称" value="山东某某酒业有限公司" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">企业类型</label>
+            <select class="form-input" id="ob_entType">
+              <option>区域酒企</option>
+              <option>特色品类酒企</option>
+              <option>成长型连锁酒企</option>
+              <option>综合酒类运营商</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">所在地区</label>
+            <input type="text" class="form-input" id="ob_region" placeholder="如：山东省临沂市" value="山东省临沂市" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">年营收规模</label>
+            <select class="form-input" id="ob_revenue">
+              <option>500万以下</option>
+              <option>500-2000万</option>
+              <option selected>2000-5000万</option>
+              <option>5000万-1亿</option>
+              <option>1亿以上</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">主营香型</label>
+            <div class="chips" id="ob_aromaChips">
+              <div class="chip on">浓香型</div>
+              <div class="chip on">清香型</div>
+              <div class="chip">酱香型</div>
+              <div class="chip">果酒</div>
+              <div class="chip">露酒</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">销售渠道</label>
+            <div class="chips" id="ob_channelChips">
+              <div class="chip on">私域电商</div>
+              <div class="chip on">直播带货</div>
+              <div class="chip on">线下门店</div>
+              <div class="chip">批发分销</div>
+              <div class="chip">商超KA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: 酒品管理 -->
+      <div class="ob-step" data-step="2">
+        <div class="ob-step-title">第二步：酒品档案配置</div>
+        <div class="ob-step-desc">配置您的主力酒品，AI 将基于这些数据做选品决策</div>
+        <div class="sku-config-list">
+          <div class="sku-config-item">
+            <div class="sku-check"><input type="checkbox" checked /></div>
+            <div class="sku-info">
+              <div class="sku-name">金钻清樽</div>
+              <div class="sku-meta">清香 42° · 核心走量款</div>
+            </div>
+            <div class="sku-price">¥188</div>
+            <div class="sku-stock">库存 5400件</div>
+          </div>
+          <div class="sku-config-item">
+            <div class="sku-check"><input type="checkbox" checked /></div>
+            <div class="sku-info">
+              <div class="sku-name">满头彩·鸿运礼盒</div>
+              <div class="sku-meta">浓香 52° · 礼赠礼盒款</div>
+            </div>
+            <div class="sku-price">¥368</div>
+            <div class="sku-stock">库存 3200件</div>
+          </div>
+          <div class="sku-config-item">
+            <div class="sku-check"><input type="checkbox" checked /></div>
+            <div class="sku-info">
+              <div class="sku-name">枇杷秋梨酒</div>
+              <div class="sku-meta">果酒 12° · 发明专利产品</div>
+            </div>
+            <div class="sku-price">¥99</div>
+            <div class="sku-stock">库存 4800件</div>
+          </div>
+          <div class="sku-config-item">
+            <div class="sku-check"><input type="checkbox" checked /></div>
+            <div class="sku-info">
+              <div class="sku-name">蓝钻清樽</div>
+              <div class="sku-meta">浓香 45° · 中坚商务款</div>
+            </div>
+            <div class="sku-price">¥268</div>
+            <div class="sku-stock">库存 2100件</div>
+          </div>
+          <div class="sku-config-item">
+            <div class="sku-check"><input type="checkbox" checked /></div>
+            <div class="sku-info">
+              <div class="sku-name">浏阳河·红方</div>
+              <div class="sku-meta">浓香 50° · 宴席走量款</div>
+            </div>
+            <div class="sku-price">¥158</div>
+            <div class="sku-stock">库存 6700件</div>
+          </div>
+          <div class="sku-config-item">
+            <div class="sku-check"><input type="checkbox" /></div>
+            <div class="sku-info">
+              <div class="sku-name">青花氿·青花20</div>
+              <div class="sku-meta">清香 53° · 高端形象款</div>
+            </div>
+            <div class="sku-price">¥598</div>
+            <div class="sku-stock">库存 600件</div>
+          </div>
+        </div>
+        <div class="add-sku-btn">+ 添加更多酒品</div>
+      </div>
+
+      <!-- Step 3: 价格配置 -->
+      <div class="ob-step" data-step="3">
+        <div class="ob-step-title">第三步：价格与毛利配置</div>
+        <div class="ob-step-desc">设置各款酒品的成本价、售价与毛利率，支撑 AI 决策</div>
+        <table class="price-tbl">
+          <thead>
+            <tr>
+              <th>酒品名称</th>
+              <th>成本价（元）</th>
+              <th>建议售价（元）</th>
+              <th>毛利率</th>
+              <th>最低成交价</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>金钻清樽</td>
+              <td><input type="number" class="mini-input" value="120" /></td>
+              <td><input type="number" class="mini-input" value="188" /></td>
+              <td class="gold-text">36%</td>
+              <td><input type="number" class="mini-input" value="158" /></td>
+            </tr>
+            <tr>
+              <td>满头彩·鸿运礼盒</td>
+              <td><input type="number" class="mini-input" value="212" /></td>
+              <td><input type="number" class="mini-input" value="368" /></td>
+              <td class="gold-text">42%</td>
+              <td><input type="number" class="mini-input" value="328" /></td>
+            </tr>
+            <tr>
+              <td>枇杷秋梨酒</td>
+              <td><input type="number" class="mini-input" value="45" /></td>
+              <td><input type="number" class="mini-input" value="99" /></td>
+              <td class="gold-text">55%</td>
+              <td><input type="number" class="mini-input" value="79" /></td>
+            </tr>
+            <tr>
+              <td>蓝钻清樽</td>
+              <td><input type="number" class="mini-input" value="160" /></td>
+              <td><input type="number" class="mini-input" value="268" /></td>
+              <td class="gold-text">40%</td>
+              <td><input type="number" class="mini-input" value="228" /></td>
+            </tr>
+            <tr>
+              <td>浏阳河·红方</td>
+              <td><input type="number" class="mini-input" value="106" /></td>
+              <td><input type="number" class="mini-input" value="158" /></td>
+              <td class="gold-text">33%</td>
+              <td><input type="number" class="mini-input" value="138" /></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="price-note">💡 毛利率 = (售价 - 成本价) / 售价 × 100%，系统将自动计算</div>
+      </div>
+
+      <!-- Step 4: 经营数据 -->
+      <div class="ob-step" data-step="4">
+        <div class="ob-step-title">第四步：经营数据导入</div>
+        <div class="ob-step-desc">导入历史经营数据，AI 决策更精准（可跳过，后续在数据中心导入）</div>
+        <div class="data-import-area">
+          <div class="import-card">
+            <div class="import-ico">📊</div>
+            <div class="import-title">历史销售数据</div>
+            <div class="import-desc">近 6 个月销售明细、动销数据</div>
+            <div class="import-status done">✓ 已导入 12,480 条</div>
+          </div>
+          <div class="import-card">
+            <div class="import-ico">👥</div>
+            <div class="import-title">私域用户数据</div>
+            <div class="import-desc">用户画像、消费行为、分层标签</div>
+            <div class="import-status done">✓ 已导入 17,200 位</div>
+          </div>
+          <div class="import-card">
+            <div class="import-ico">📢</div>
+            <div class="import-title">投放历史数据</div>
+            <div class="import-desc">各平台投放计划、消耗、转化</div>
+            <div class="import-status done">✓ 已导入 24 个投放组</div>
+          </div>
+          <div class="import-card">
+            <div class="import-ico">📦</div>
+            <div class="import-title">库存与供应链</div>
+            <div class="import-desc">库存周转、云仓履约数据</div>
+            <div class="import-status done">✓ 已同步实时数据</div>
+          </div>
+        </div>
+        <div class="onboarding-summary">
+          <div class="summary-title">🎉 配置完成！AI 正在为您生成专属决策方案</div>
+          <div class="summary-desc">基于您的企业信息、酒品档案、价格策略与历史数据，四大 AI Agent 已就绪</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="onboarding-actions">
+      <button class="btn-ghost" id="obPrev" style="display:none">上一步</button>
+      <button class="btn-ghost" id="obSkip">跳过配置</button>
+      <div style="flex:1"></div>
+      <button class="btn-gold" id="obNext">下一步</button>
+      <button class="btn-gold" id="obStart" style="display:none">开始使用 AI OS</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/agent.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
